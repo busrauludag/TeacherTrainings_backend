@@ -8,6 +8,7 @@ var app = express();
 
 app.use(bodyParser.json());
 
+
 app.post('/author', (request,response) => {
 	var authorData = request.body;
 	var author = new Author(authorData);
@@ -19,6 +20,12 @@ app.post('/author', (request,response) => {
 
 		response.status(201);
 	});
+})
+
+
+app.get('/author', async(request,response) => {
+	var authors = await Author.find({}, '-__v');
+	response.send(authors);
 })
 
 mongoose.connect("mongodb://busra:b12345@ds245022.mlab.com:45022/teacherbase", (err) => {
