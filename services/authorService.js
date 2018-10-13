@@ -17,8 +17,8 @@ router.post('/add', (request,response) => {
 	});
 })
 
-// /author/list ya da "" ile /author
-router.get('/list', async(request,response) => {
+// /author/list ya da "" ile /author url'i tanumlamış oluruz
+router.get('', async(request,response) => {
 	var authors = await Author.find({}, '-__v');
 	response.send(authors);
 })
