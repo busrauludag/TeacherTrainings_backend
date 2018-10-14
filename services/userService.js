@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+var jwt = require('jwt-simple');
 
 var User = require('../models/user');
 
@@ -16,7 +17,7 @@ router.post('/register', (request, response) => {
 
 router.post('/login', async (request, response) => { // listeleme yapacağımız için yani insert işlemi olmadığı için async kullanıyoruz
     var userData = request.body;
-    var user = await user.findOne({email:userData.email});
+    var user = await User.findOne({email:userData.email});
     if(!user){
         return response.status(401).send({message:'Email or password invalid!'}); // 401 = unauthorize
     }
@@ -24,7 +25,10 @@ router.post('/login', async (request, response) => { // listeleme yapacağımız
         return response.status(401).send({message:'Email or password invalid!'}); // 401 = unauthorize
     }
 
-    return response.sendStatus(200);
+    // token oluşturma ve gönderme
+    var payload = {}  // token'ın bilgi tutması
+    var token = jwt.encode(payload,'12345'); // key şifreyi çözmek için anahtar
+    return response.status(200).send({token});
 })
 
 // main js'te kullanabilmek için dışarı çıkartıyoruz
