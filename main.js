@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 
 var author = require('./services/authorService');
+var user = require('./services/userService');
 
 var app = express();
 
@@ -18,6 +19,7 @@ mongoose.connect("mongodb://busra:b12345@ds245022.mlab.com:45022/teacherbase",{ 
 })
 
 app.use('/author', author.router);
+app.use('/user', user.router);
 
 app.listen(8080);
 
