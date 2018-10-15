@@ -11,7 +11,7 @@ router.post('/register', (request, response) => {
         if(error){
             console.log("Error saving the user!");
         }
-        response.sendStatus(201);  //created
+        return response.status(201).send({message:'Created'});  //created
     })
 })
 
